@@ -84,7 +84,6 @@ if (env('APP_DEBUG')) {
     $app->configure('debugbar');
     $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
     }
-    $app->configure('debugbar');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
