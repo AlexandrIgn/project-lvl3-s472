@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -57,9 +57,9 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+ $app->middleware([
+     App\Http\Middleware\ExampleMiddleware::class
+ ]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
@@ -76,16 +76,14 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
-if (env('APP_DEBUG')) {
-    $app->configure('app');
-    $app->configure('debugbar');
-    $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
-}
-$var = app('debugbar');
-$var->info('Logging info...');
+//$app->register(App\Providers\AppServiceProvider::class);
+//$app->register(App\Providers\AuthServiceProvider::class);
+//$app->register(App\Providers\EventServiceProvider::class);
+ if (env('APP_DEBUG')) {
+     $app->configure('app');
+     $app->configure('debugbar');
+     $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
+ }
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -97,10 +95,10 @@ $var->info('Logging info...');
 |
 */
 
-$app->router->group([
+ $app->router->group([
     'namespace' => 'App\Http\Controllers',
-], function ($router) {
+ ], function ($router) {
     require __DIR__ . '/../routes/web.php';
-});
+ });
 
-return $app;
+ return $app;

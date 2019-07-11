@@ -11,6 +11,19 @@
 |
 */
 
+
 $router->get('/', function () use ($router) {
     return view('navbar', []);
 });
+
+$router->post('/domains', [
+    'as' => 'domains.store', 'uses' => 'DomainController@store'
+    ]);
+
+$router->get('/domains/{id}', [
+    'as' => 'domains.show', 'uses' => 'DomainController@show'
+    ]);
+
+$router->get('/domains', [
+    'as' => 'domains.index', 'uses' => 'DomainController@index'
+    ]);
