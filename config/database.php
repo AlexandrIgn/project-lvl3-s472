@@ -1,6 +1,6 @@
 <?php
   $DATABASE_URL = parse_url(getenv('DATABASE_URL'));
-  if (getenv('DATABASE_URL')) {
+  if (getenv('APP_ENV') === 'production') {
       $dbConnection = 'pgsql';
   } else {
     $dbConnection = 'sqlite';
