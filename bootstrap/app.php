@@ -84,6 +84,7 @@ $app->singleton(
      $app->configure('debugbar');
      $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
  }
+ $app->configure('database');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
