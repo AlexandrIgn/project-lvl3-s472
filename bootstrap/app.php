@@ -85,6 +85,7 @@ $app->singleton(
  }
  $app->configure('app');
  $app->configure('database');
+ 
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

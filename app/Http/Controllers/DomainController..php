@@ -14,6 +14,13 @@ use GuzzleHttp\Client;
 
 class DomainController extends BaseController
 {
+    private $client;
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -24,9 +31,9 @@ class DomainController extends BaseController
             return view('navbar', ['error' => $error]);
         }
         $url = $request->input('url');
-        $client = new Client();
+        //$client = new Client();
         //Log::debug($document = app(Document::class));
-        $response = app(Client::class);
+        $response = $this->client->get($url);
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
         $statusCode = $response->getStatusCode();
         $body = $response->getBody();
