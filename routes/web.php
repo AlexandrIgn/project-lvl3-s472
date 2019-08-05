@@ -10,13 +10,13 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
+/*
 use DiDom\Document;
 $document = app(Document::class);
 $document->loadHtmlFile('https://royal-zed-51774.herokuapp.com/');
 $header = $document->find('h1')[0]->text();
 dump($header);
-
+*/
 $router->get('/', function () use ($router) {
     return view('navbar', []);
 });
