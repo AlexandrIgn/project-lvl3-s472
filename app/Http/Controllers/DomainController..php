@@ -26,7 +26,7 @@ class DomainController extends BaseController
         $url = $request->input('url');
         $client = new Client();
         //Log::debug($document = app(Document::class));
-        $response = $client->get($url);
+        $response = app(Client::class);
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
         $statusCode = $response->getStatusCode();
         $body = $response->getBody();
