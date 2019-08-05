@@ -31,21 +31,21 @@ class DomainController extends BaseController
             return view('navbar', ['error' => $error]);
         }
         $url = $request->input('url');
-        $client = new Client();
+        //$client = new Client();
         ///Log::debug($document = app(Document::class));
-        $response = $client->get($url);
-        $contentLength = $response->getHeader('Content-Length')[0] ?? '';
-        $statusCode = $response->getStatusCode();
-        $body = $response->getBody();
+        //$response = $client->get($url);
+        //$contentLength = $response->getHeader('Content-Length')[0] ?? '';
+        //$statusCode = $response->getStatusCode();
+        //$body = $response->getBody();
         $updated_at = Carbon::now();
         $created_at = Carbon::now();
         $id = DB::table('domains')->insertGetId([
             'name' => $url,
             'updated_at' => $updated_at,
             'created_at' => $created_at,
-            'content_length' => $contentLength,
-            'status_code' => $statusCode,
-            'body' => $body
+            //'content_length' => $contentLength,
+            //'status_code' => $statusCode,
+            //'body' => $body
         ]);
         return redirect()->route('domains.show', ['id' => $id]);
     }
