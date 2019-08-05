@@ -17,9 +17,11 @@ class CreateDomainsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
+            $table->string('content_length');
+            $table->string('status_code');
+            $table->string('body');
             });
     }
-
     /**
      * Reverse the migrations.
      *

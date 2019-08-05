@@ -17,6 +17,8 @@
       <th scope="col">name</th>
       <th scope="col">update</th>
       <th scope="col">create</th>
+      <th scope="col">status code</th>
+      <th scope="col">length body</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +27,8 @@
       <td><?= $domain->name ?></td>
       <td><?= $domain->updated_at ?></td>
       <td><?= $domain->created_at ?></td>
+      <td><?= $domain->status_code ?></td>
+      <td><?= mb_strlen($domain->body) ?></td>
     </tr>
   </tbody>
 </table>
