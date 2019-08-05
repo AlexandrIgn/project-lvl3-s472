@@ -32,7 +32,7 @@ class DomainController extends BaseController
         }
         $url = $request->input('url');
         $client = new Client();
-        //Log::debug($document = app(Document::class));
+        ///Log::debug($document = app(Document::class));
         $response = $client->get($url);
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
         $statusCode = $response->getStatusCode();
