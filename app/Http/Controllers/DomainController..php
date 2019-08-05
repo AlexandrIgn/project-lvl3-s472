@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
-use DiDom\Document;
+//use DiDom\Document;
 
 class DomainController extends BaseController
 {
