@@ -24,7 +24,7 @@ class DomainController extends BaseController
             return view('navbar', ['error' => $error]);
         }
         $url = $request->input('url');
-        $client = app(Client::class);
+        $client = new Client();
         //Log::debug($document = app(Document::class));
         $response = $client->get($url);
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
