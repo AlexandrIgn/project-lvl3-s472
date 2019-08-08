@@ -43,9 +43,9 @@ class DomainController extends BaseController
             'name' => $url,
             'updated_at' => $updated_at,
             'created_at' => $created_at,
-            'content_length' => $contentLength,
-            'status_code' => $statusCode,
-            'body' => $body
+            //'content_length' => $contentLength,
+            //'status_code' => $statusCode,
+            //'body' => $body
         ]);
         return redirect()->route('domains.show', ['id' => $id]);
     }
