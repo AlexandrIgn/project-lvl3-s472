@@ -10,17 +10,10 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
-//use DiDom\Document;
 
 class DomainController extends BaseController
 {
-   // private $client;
-
-    //public function __construct(Client $client)
-    //{
-      //  $this->client = $client;
-    //}
-
+ 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -32,7 +25,6 @@ class DomainController extends BaseController
         }
         $url = $request->input('url');
         $client = new Client();
-        ///Log::debug($document = app(Document::class));
         $response = $client->get($url);
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
         $statusCode = $response->getStatusCode();
@@ -43,9 +35,9 @@ class DomainController extends BaseController
             'name' => $url,
             'updated_at' => $updated_at,
             'created_at' => $created_at,
-            //'content_length' => $contentLength,
-            //'status_code' => $statusCode,
-            //'body' => $body
+            'content_length' => $contentLength,
+            'status_code' => $statusCode,
+            'body' => $body
         ]);
         return redirect()->route('domains.show', ['id' => $id]);
     }

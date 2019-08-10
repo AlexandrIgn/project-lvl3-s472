@@ -20,10 +20,11 @@ class CreateDomainsTable extends Migration
             $table->string('content_length');
             $table->string('status_code');
             $table->string('body');
-            });
+        });
     }
+
     /**
-     * Reverse the  migrations.
+     * Reverse the migrations.
      *
      * @return void
      */
