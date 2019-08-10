@@ -19,7 +19,7 @@ class CreateDomainsTable extends Migration
             $table->timestamps();
             $table->string('content_length');
             $table->string('status_code');
-            $table->string('body');
+            $table->text('body');
         });
     }
 
