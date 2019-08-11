@@ -10,13 +10,17 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-/*
+
 use DiDom\Document;
-$document = app(Document::class);
-$document->loadHtmlFile('https://royal-zed-51774.herokuapp.com/');
-$header = $document->find('h1')[0]->text();
-dump($header);
-*/
+//$document = app(Document::class);
+//$document->loadHtmlFile('https://guarded-brushlands-74971.herokuapp.com/');
+//$header = $document->find('h1')[0]->text();
+//dump($header);
+//if ($document->has('meta[name=keywords]')) {
+  //  $keyword = $document->find('meta[name=keywords]')[0]->getAttribute('content');
+    //dump($keyword);
+//}
+
 $router->get('/', function () use ($router) {
     return view('navbar', []);
 });
