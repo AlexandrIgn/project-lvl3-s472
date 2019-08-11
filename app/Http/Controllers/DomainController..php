@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
+use DiDom\Document;
 
 class DomainController extends BaseController
 {
@@ -31,13 +32,27 @@ class DomainController extends BaseController
         $body = $response->getBody();
         $updated_at = Carbon::now();
         $created_at = Carbon::now();
+        $document = app(Document::class);
+        $document->loadHtmlFile($url);
+        if ($document->has('h1')) {
+            $header = $document->find('h1')[0]->text();
+        }
+        if ($document->has('meta[name=keywords]')) {
+            $keywords = $document->find('meta[name=keywords]')[0]->getAttribute('content');
+        }
+        if ($document->has('meta[name=description]')) {
+            $description = $document->find('meta[name=description]')[0]->getAttribute('content');
+        }
         $id = DB::table('domains')->insertGetId([
             'name' => $url,
             'updated_at' => $updated_at,
             'created_at' => $created_at,
             'content_length' => $contentLength,
             'status_code' => $statusCode,
-            'body' => $body
+            'body' => $body,
+            'header' => $header ?? '',
+            'keywords' => $keywords ?? '',
+            'description' => $description ?? ''
         ]);
         return redirect()->route('domains.show', ['id' => $id]);
     }
@@ -50,7 +65,7 @@ class DomainController extends BaseController
 
     public function index()
     {
-        $domains = DB::table('domains')->paginate(7);
+        $domains = DB::table('domains')->paginate(5);
         return view('index', ['domains' => $domains]);
     }
 }

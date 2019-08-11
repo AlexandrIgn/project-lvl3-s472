@@ -19,6 +19,9 @@
       <th scope="col">create</th>
       <th scope="col">status code</th>
       <th scope="col">length body</th>
+      <th scope="col">header</th>
+      <th scope="col">keywords</th>
+      <th scope="col">description</th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +32,9 @@
       <td><?= $domain->created_at ?></td>
       <td><?= $domain->status_code ?></td>
       <td><?= mb_strlen($domain->body) ?></td>
+      <td><?= $domain->header ?></td>
+      <td><?= $domain->keywords ?></td>
+      <td><?= $domain->description ?></td>
     </tr>
   </tbody>
 </table>
