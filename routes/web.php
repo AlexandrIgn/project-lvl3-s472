@@ -11,7 +11,7 @@
 |
 */
 $router->get('/', function () use ($router) {
-    return view('navbar', []);
+    return view('seotest', []);
 });
 
 $router->post('/domains', [

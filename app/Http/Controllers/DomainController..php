@@ -22,7 +22,7 @@ class DomainController extends BaseController
         ]);
         if ($validator->fails()) {
             $error = 'You have entered an empty or non-existent URL';
-            return view('navbar', ['error' => $error]);
+            return view('seotest', ['error' => $error]);
         }
         $url = $request->input('url');
         $client = app(Client::class);
