@@ -14,7 +14,7 @@
                 </button>
             </div>
         <?php endif ?>
-        <form class="form-inline" action="/domains" method="post">
+        <form class="form-inline" action="{{ route('domains.store')  }}" method="post">
             <input class="form-control mr-sm-2" name="url" type="search" placeholder="Enter URL" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Analyze</button>
         </form>

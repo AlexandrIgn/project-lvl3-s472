@@ -16,7 +16,7 @@
         <tbody>
             <tr>
                 <th scope="row"><?= $domain->id ?></th>
-                <td><a href="/domains/<?= $domain->id ?>"><?= $domain->name ?></a></td>
+                <td><a href="{{ route('domains.show', ['id' => $domain->id]) }}"><?= $domain->name ?></a></td>
                 <td><?= $domain->updated_at ?></td>
                 <td><?= $domain->created_at ?></td>
             </tr>

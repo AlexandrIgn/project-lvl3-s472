@@ -10,9 +10,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->get('/', function () use ($router) {
+$router->get('/', ['as' => 'home', function () use ($router) {
     return view('seotest', []);
-});
+}]);
 
 $router->post('/domains', [
     'as' => 'domains.store', 'uses' => 'DomainController@store'

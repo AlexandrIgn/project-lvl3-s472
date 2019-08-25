@@ -24,7 +24,7 @@
             <td><?= $domain->updated_at ?></td>
             <td><?= $domain->created_at ?></td>
             <td><?= $domain->status_code ?></td>
-            <td><?= mb_strlen($domain->body) ?></td>
+            <td><?= $domain->contentLength ?? mb_strlen($domain->body) ?></td>
             <td><?= $domain->header ?></td>
             <td><?= $domain->keywords ?></td>
             <td><?= $domain->description ?></td>
