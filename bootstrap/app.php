@@ -85,6 +85,8 @@ $app->singleton(
  }
  $app->configure('app');
  $app->configure('database');
+
+ $app->register(App\Providers\AppServiceProvider::class);
  
 /*
 |--------------------------------------------------------------------------

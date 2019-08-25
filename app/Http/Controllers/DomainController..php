@@ -6,11 +6,10 @@ use Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
 use DiDom\Document;
+use App\Domain;
 
 class DomainController extends BaseController
 {
@@ -30,8 +29,6 @@ class DomainController extends BaseController
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
         $statusCode = $response->getStatusCode();
         $body = $response->getBody();
-        $updated_at = Carbon::now();
-        $created_at = Carbon::now();
         $document = app(Document::class);
         $document->loadHtmlFile($url);
         if ($document->has('h1')) {
@@ -43,10 +40,8 @@ class DomainController extends BaseController
         if ($document->has('meta[name=description]')) {
             $description = $document->find('meta[name=description]')[0]->getAttribute('content');
         }
-        $id = DB::table('domains')->insertGetId([
+        $domain = Domain::create([
             'name' => $url,
-            'updated_at' => $updated_at,
-            'created_at' => $created_at,
             'content_length' => $contentLength,
             'status_code' => $statusCode,
             'body' => $body,
@@ -54,18 +49,18 @@ class DomainController extends BaseController
             'keywords' => $keywords ?? '',
             'description' => $description ?? ''
         ]);
-        return redirect()->route('domains.show', ['id' => $id]);
+        return redirect()->route('domains.show', ['id' => $domain->id]);
     }
 
     public function show($id)
     {
-        $domain = DB::table('domains')->find($id);
+        $domain = Domain::find($id);
         return view('domain', ['domain' => $domain]);
     }
 
     public function index()
     {
-        $domains = DB::table('domains')->paginate(5);
+        $domains = Domain::paginate(5);
         return view('index', ['domains' => $domains]);
     }
 }

@@ -50,4 +50,11 @@ class DomainControllerTest extends \TestCase
         $this->seeInDatabase('domains', ['header' => "header"]);
         $this->seeInDatabase('domains', ['description' => "This is description!"]);
     }
+
+    public function testShow()
+    {
+        $domain = factory('App\Domain')->create();
+        $response = $this->call('GET', route('domains.show', ['id' => $domain->id]));
+        $this->assertEquals(200, $response->status());
+    }
 }
