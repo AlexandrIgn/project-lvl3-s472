@@ -50,10 +50,4 @@ class DomainControllerTest extends \TestCase
         $this->seeInDatabase('domains', ['header' => "header"]);
         $this->seeInDatabase('domains', ['description' => "This is description!"]);
     }
-
-   /* public function testShow()
-    {
-        
-    }
-    */
 }
