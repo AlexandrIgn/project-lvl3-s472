@@ -5,8 +5,10 @@ namespace Tests;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use DiDom\Document;
+use GuzzleHttp\Psr7\Request;
 
 class DomainControllerTest extends \TestCase
 {
@@ -19,33 +21,28 @@ class DomainControllerTest extends \TestCase
 
     public function testHome()
     {
-        $response = $this->call('GET', route('home'));
-        $this->assertEquals(200, $response->status());
+        $this->get('/');
+        $this->assertResponseStatus(200);
     }
 
     public function testIndex()
     {
-        $response = $this->call('GET', route('domains.index'));
-        $this->assertEquals(200, $response->status());
+        $domain = factory('App\Domain')->create();
+        $this->get('/domains');
+        $this->assertResponseStatus(200);
     }
 
     public function testStore()
     {
-        $client = $this->getMockBuilder(Client::class)
-                        ->setMethods(['get'])
-                        ->getMock();
-        $response = new Response(111, ['Content-Length' => 'Bar'], 'This is body!');
-        $client->method('get')
-                ->willReturn($response);
+
+        $html = file_get_contents('tests/fixtures/testpage.html');
+        $response = new Response(111, ['Content-Length' => 'Bar'], $html);
+        $mock = new MockHandler([new Response(111, ['Content-Length' => 'Bar'], $html)]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
         $this->app->instance(Client::class, $client);
-        $document = new Document('tests/fixtures/testpage.html', true);
-        $document = $this->getMockBuilder(Document::class)
-        ->setConstructorArgs(array('tests/fixtures/testpage.html', true))
-        ->setMethods(array('loadHtmlFile'))
-        ->getMock();
-        $this->app->instance(Document::class, $document);
         $this->call('POST', route('domains.store'), ['url' => 'https://laravel.com/docs/5.8/mocking']);
-        $this->seeInDatabase('domains', ['body' => 'This is body!']);
         $this->seeInDatabase('domains', ['status_code' => 111]);
         $this->seeInDatabase('domains', ['header' => "header"]);
         $this->seeInDatabase('domains', ['description' => "This is description!"]);
@@ -54,7 +51,7 @@ class DomainControllerTest extends \TestCase
     public function testShow()
     {
         $domain = factory('App\Domain')->create();
-        $response = $this->call('GET', route('domains.show', ['id' => $domain->id]));
-        $this->assertEquals(200, $response->status());
+        $this->get('/domains/' . $domain->id);
+        $this->assertResponseStatus(200);
     }
 }

@@ -20,7 +20,7 @@ class DomainController extends BaseController
             "url" => "required|url"
         ]);
         if ($validator->fails()) {
-            $error = 'You have entered an empty or non-existent URL';
+            $error = __('/validation.url', ['attribute' => 'URL']);
             return view('seotest', ['error' => $error]);
         }
         $url = $request->input('url');
@@ -28,9 +28,9 @@ class DomainController extends BaseController
         $response = $client->get($url);
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
         $statusCode = $response->getStatusCode();
-        $body = $response->getBody();
+        $body = $response->getBody()->getContents();
         $document = app(Document::class);
-        $document->loadHtmlFile($url);
+        $document->loadHtml($body);
         if ($document->has('h1')) {
             $header = $document->find('h1')[0]->text();
         }
