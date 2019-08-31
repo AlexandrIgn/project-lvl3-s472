@@ -10,7 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 
-class DomainControllerTest extends \TestCase
+class DomainControllerTest extends TestCase
 {
     use DatabaseMigrations;
     /**
@@ -21,14 +21,14 @@ class DomainControllerTest extends \TestCase
 
     public function testHome()
     {
-        $this->get('/');
+        $this->get(route('home'));
         $this->assertResponseStatus(200);
     }
 
     public function testIndex()
     {
         $domain = factory('App\Domain')->create();
-        $this->get('/domains');
+        $this->get(route('domains.store'));
         $this->assertResponseStatus(200);
     }
 
@@ -42,7 +42,7 @@ class DomainControllerTest extends \TestCase
         $client = new Client(['handler' => $handler]);
 
         $this->app->instance(Client::class, $client);
-        $this->call('POST', route('domains.store'), ['url' => 'https://laravel.com/docs/5.8/mocking']);
+        $this->post(route('domains.store'), ['url' => 'https://laravel.com/docs/5.8/mocking']);
         $this->seeInDatabase('domains', ['status_code' => 111]);
         $this->seeInDatabase('domains', ['header' => "header"]);
         $this->seeInDatabase('domains', ['description' => "This is description!"]);
@@ -51,7 +51,7 @@ class DomainControllerTest extends \TestCase
     public function testShow()
     {
         $domain = factory('App\Domain')->create();
-        $this->get('/domains/' . $domain->id);
+        $this->get(route('domains.show', ['id' => $domain->id]));
         $this->assertResponseStatus(200);
     }
 }

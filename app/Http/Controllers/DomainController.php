@@ -6,7 +6,6 @@ use Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
 use DiDom\Document;
 use App\Domain;
@@ -29,8 +28,7 @@ class DomainController extends BaseController
         $contentLength = $response->getHeader('Content-Length')[0] ?? '';
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
-        $document = app(Document::class);
-        $document->loadHtml($body);
+        $document = new Document($body);
         if ($document->has('h1')) {
             $header = $document->find('h1')[0]->text();
         }
@@ -54,7 +52,7 @@ class DomainController extends BaseController
 
     public function show($id)
     {
-        $domain = Domain::find($id);
+        $domain = Domain::findOrFail($id);
         return view('domain', ['domain' => $domain]);
     }
 
